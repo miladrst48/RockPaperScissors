@@ -11,57 +11,43 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let yourChoice = prompt('Choose Rock, Paper or Scissors.').toLowerCase();
-    if (yourChoice === 'rock') {
-        return 'rock';
-    } else if (yourChoice === 'paper') {
-        return 'paper';
-    } else if (yourChoice === 'scissors') {
-        return 'scissors';
-    } else {
-        return 'Invalid input';
-    }
-}
 
-let computerScore = 0;
-let humanScore = 0;
-function playGame() {
+    let computerScore = 0;
+    let humanScore = 0;
+    let computerSelection = getComputerChoice();
+    let humanSelection = "";
 
-
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    function playRound(humanChoice, computerChoice) {
-        if (humanChoice === 'rock') {
-            if (computerChoice === 'rock') {
+    function playRound(humanSelection, computerSelection) {
+        if (humanSelection === 'rock') {
+            if (computerSelection === 'rock') {
                 return "Draw";
-            } else if (computerChoice === 'paper') {
+            } else if (computerSelection === 'paper') {
                 computerScore++;
                 return "You lost";
-            } else if (computerChoice === 'scissors') {
+            } else if (computerSelection === 'scissors') {
                 humanScore++;
                 return "You won";
             } else {
                 return "Computer generated wrong number";
             }
         
-        }  else if (humanChoice === 'paper') {
-            if (computerChoice === 'rock') {
+        }  else if (humanSelection === 'paper') {
+            if (computerSelection === 'rock') {
                 humanScore++;
                 return "You Won";
-            } else if (computerChoice === 'paper') {
+            } else if (computerSelection === 'paper') {
                 return "Draw";
-            } else if (computerChoice === 'scissors') {
+            } else if (computerSelection === 'scissors') {
                 computerScore++;
                 return 'You lost';
             } else {
                 return 'something wenT WrOng.';
             }
-        } else if (humanChoice === 'scissors') {
-            if (computerChoice === 'rock') {
+        } else if (humanSelection === 'scissors') {
+            if (computerSelection === 'rock') {
                 computerScore++;
                 return 'You lost';
-            } else if (computerChoice === 'paper') {
+            } else if (computerSelection === 'paper') {
                 humanScore++;
                 return "You won";
             } else {
@@ -71,18 +57,38 @@ function playGame() {
             return "wrong play!";
         }
     }
-    console.log(playRound(humanSelection, computerSelection));
+    
+ 
 
-}
+/* DOM Code */
+////////////////
 
-playGame();
-playGame();
-playGame();
-playGame();
-playGame();
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
 
-if (humanScore > computerScore) {
-    alert("Well Done!");
-} else {
-    alert("Try again");
-}
+
+rockButton.addEventListener("click", function() {
+    document.querySelector(".roundResult").textContent = playRound("rock", getComputerChoice());
+    document.querySelector(".humanSc").textContent = humanScore;
+    document.querySelector(".computerSc").textContent = computerScore;
+
+});
+
+paperButton.addEventListener("click", function() {
+    document.querySelector(".roundResult").textContent = playRound("paper", getComputerChoice());
+    document.querySelector(".humanSc").textContent = humanScore;
+    document.querySelector(".computerSc").textContent = computerScore;
+
+});
+
+scissorsButton.addEventListener("click", function() {
+    document.querySelector(".roundResult").textContent = playRound("scissors", getComputerChoice());
+    document.querySelector(".humanSc").textContent = humanScore;
+    document.querySelector(".computerSc").textContent = computerScore;
+
+});
+
+
+
+
