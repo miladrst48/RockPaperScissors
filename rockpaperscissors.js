@@ -14,19 +14,16 @@ function getComputerChoice() {
 
     let computerScore = 0;
     let humanScore = 0;
-    let computerSelection = getComputerChoice();
-    let humanSelection = "";
+    
 
     function playRound(humanSelection, computerSelection) {
         if (humanSelection === 'rock') {
             if (computerSelection === 'rock') {
-                return "Draw";
+                return "It's a Draw";
             } else if (computerSelection === 'paper') {
                 computerScore++;
-                return "You lost";
             } else if (computerSelection === 'scissors') {
                 humanScore++;
-                return "You won";
             } else {
                 return "Computer generated wrong number";
             }
@@ -34,31 +31,26 @@ function getComputerChoice() {
         }  else if (humanSelection === 'paper') {
             if (computerSelection === 'rock') {
                 humanScore++;
-                return "You Won";
             } else if (computerSelection === 'paper') {
-                return "Draw";
+                return "It's a Draw";
             } else if (computerSelection === 'scissors') {
                 computerScore++;
-                return 'You lost';
             } else {
                 return 'something wenT WrOng.';
             }
         } else if (humanSelection === 'scissors') {
             if (computerSelection === 'rock') {
                 computerScore++;
-                return 'You lost';
             } else if (computerSelection === 'paper') {
                 humanScore++;
-                return "You won";
             } else {
-                return "Draw";
+                return "It's a Draw";
             }
         } else {
             return "wrong play!";
         }
     }
     
- 
 
 /* DOM Code */
 ////////////////
@@ -66,28 +58,46 @@ function getComputerChoice() {
 const rockButton = document.querySelector("#rock");
 const paperButton = document.querySelector("#paper");
 const scissorsButton = document.querySelector("#scissors");
+const resetButton = document.querySelector("#reset");
 
 
 rockButton.addEventListener("click", function() {
     document.querySelector(".roundResult").textContent = playRound("rock", getComputerChoice());
-    document.querySelector(".humanSc").textContent = humanScore;
-    document.querySelector(".computerSc").textContent = computerScore;
-
+    updateScores();
 });
 
 paperButton.addEventListener("click", function() {
     document.querySelector(".roundResult").textContent = playRound("paper", getComputerChoice());
-    document.querySelector(".humanSc").textContent = humanScore;
-    document.querySelector(".computerSc").textContent = computerScore;
-
+    updateScores();
 });
 
 scissorsButton.addEventListener("click", function() {
     document.querySelector(".roundResult").textContent = playRound("scissors", getComputerChoice());
+    updateScores();
+});
+
+resetButton.addEventListener("click", function() {
+    humanScore = 0;
+    computerScore = 0;
+    document.querySelector(".humanSc").textContent = humanScore;
+    document.querySelector(".computerSc").textContent = computerScore;
+    document.querySelector(".roundResult").textContent = "";
+    rockButton.disabled = false;
+    paperButton.disabled = false;
+    scissorsButton.disabled = false;
+})
+
+function updateScores() {
     document.querySelector(".humanSc").textContent = humanScore;
     document.querySelector(".computerSc").textContent = computerScore;
 
-});
+    if (humanScore === 5 || computerScore === 5) {
+        rockButton.disabled = true;
+        paperButton.disabled = true;
+        scissorsButton.disabled = true;
+    }
+}
+
 
 
 
